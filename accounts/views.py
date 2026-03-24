@@ -9,7 +9,7 @@ def register_view(request):
         user_form = UserCreationForm(request.POST)
         if user_form.is_valid():
             user_form.save()
-            return redirect('cars_list')
+            return redirect('login')
     else:
         user_form = UserCreationForm()
     return render(request, 'register.html', {'user_form': user_form})
@@ -21,7 +21,7 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('login')
+            return redirect('cars_list')
         else:
             login_form = AuthenticationForm()
     else:
