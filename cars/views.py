@@ -5,21 +5,6 @@ from django.views import View
 from django.views.generic import ListView
 
 # Create your views here.
-
-class CarsView(View):
-
-    def get(self, request):
-        cars = Car.objects.all().order_by('model')
-        search = request.GET.get('search')
-
-        if search:
-            cars = cars.filter(model__icontains=search)
-
-        return render(
-            request,
-            'cars.html',
-            {'cars': cars}
-        )
     
 class CarsListView(ListView):
     model = Car
@@ -31,7 +16,7 @@ class CarsListView(ListView):
         search = self.request.GET.get('search')
 
         if search:
-            cars = cars.filter(model_icontains=search)
+            cars = cars.filter(model__icontains=search)
         return cars
 
 class NewCarView(View):
